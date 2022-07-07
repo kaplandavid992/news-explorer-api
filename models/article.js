@@ -28,8 +28,9 @@ const articleSchema = new mongoose.Schema({
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    //ref: 'user',
-    //required: true
+    ref: 'user',
+    select: 'false',
+    required: true
   },
 });
 
