@@ -43,12 +43,10 @@ const createUser = (req, res, next) => {
     }).then((hash) => User.create({
       email,
       password: hash,
-      name,
-      about,
-      avatar,
+      name
     }))
     .then(() => res.status(200).send({
-      email, name, about, avatar,
+      email, name
     }))
     .catch(next);
 };
