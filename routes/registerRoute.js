@@ -4,4 +4,4 @@ const { createUser } = require('../controllers/user');
 
 registerRouter.post('/signin',validateEmailPassword(), createUser);
 
-module.exports = userRouter;
+module.exports = registerRouter;

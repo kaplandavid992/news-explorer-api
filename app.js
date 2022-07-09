@@ -6,7 +6,8 @@ const helmet = require('helmet');
 const authRoutes = require('./routes/authRoutes');
 const auth = require('./middleware/auth');
 const appRoutes = require('./routes/appRoutes');
-const { limiter } = require('./middlewares/limiter');
+const { limiter } = require('./middleware/limiter');
+const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const NotFoundError = require('./errors/NotFoundError');
 

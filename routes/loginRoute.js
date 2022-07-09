@@ -4,4 +4,4 @@ const { login } = require("../controllers/user");
 
 loginRouter.post("/signin", validateEmailPassword(), login);
 
-module.exports = userRouter;
+module.exports = loginRouter;

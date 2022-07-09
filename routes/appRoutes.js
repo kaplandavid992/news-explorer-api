@@ -1,7 +1,7 @@
 const appRoutes = require('express').Router();
 
-const userRouter = require('./routes/userRoute');
-const articleRouter = require('./routes/articleRoute');
+const userRouter = require('./userRoute');
+const articleRouter = require('./articleRoute');
 
 appRoutes.use(userRouter, articleRouter);
 

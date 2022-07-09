@@ -1,4 +1,4 @@
-const { celebrate } = require('celebrate');
+const { celebrate, Joi } = require('celebrate');
 
 const validateEmailPassword = () => {
   return celebrate({
