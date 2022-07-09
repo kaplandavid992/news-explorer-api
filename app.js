@@ -19,9 +19,10 @@ app.options('*', cors());
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(requestLogger);
-mongoose.connect('mongodb://localhost:27017/newsexplorerdb');
 
 const { PORT = 3000 } = process.env;
+const { NODE_ENV, DB_ADDRESS } = process.env;
+mongoose.connect(NODE_ENV === 'production' ? DB_ADDRESS :'mongodb://localhost:27017/newsexplorerdb');
 
 const route = (req, res) => {
   throw new NotFoundError('Requested Resource Not found', 404);
