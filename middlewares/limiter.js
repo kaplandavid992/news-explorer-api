@@ -1,5 +1,5 @@
 const rateLimit = require('express-rate-limit');
-const { ForbiddenError } = require('../errors/ForbiddenError');
+const ForbiddenError = require('../errors/ForbiddenError');
 
 exports.limiter = rateLimit({
 	windowMs: 15 * 60 * 1000,
