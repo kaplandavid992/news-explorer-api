@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const authRoutes = require('./routes/authRoutes');
-const auth = require('./middleware/auth');
+const auth = require('./middlewares/auth');
 const appRoutes = require('./routes/appRoutes');
-const { limiter } = require('./middleware/limiter');
+const { limiter } = require('./middlewares/limiter');
 const { errors } = require('celebrate');
-const { requestLogger, errorLogger } = require('./middleware/logger');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/NotFoundError');
 
 const app = express();
@@ -22,8 +22,8 @@ app.use(bodyParser.json());
 app.use(requestLogger);
 
 const { PORT = 3000 } = process.env;
-const { NODE_ENV, DB_ADDRESS } = process.env;
-mongoose.connect(NODE_ENV === 'production' ? DB_ADDRESS :'mongodb://localhost:27017/newsexplorerdb');
+
+mongoose.connect('mongodb://localhost:27017/newsexplorerdb');
 
 const route = (req, res) => {
   throw new NotFoundError('Requested Resource Not found', 404);
