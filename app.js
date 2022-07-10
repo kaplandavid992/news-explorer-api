@@ -21,19 +21,12 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(requestLogger);
 
-const { PORT = 3000 } = process.env;
-
-mongoose.connect('mongodb://localhost:27017/newsexplorerdb');
+const { PORT = 3000, NODE_ENV, DB_ADDRESS } = process.env;
+mongoose.connect(NODE_ENV === 'production' ? DB_ADDRESS : 'mongodb://localhost:27017/newsexplorerdevdb');
 
 const route = (req, res) => {
   throw new NotFoundError('Requested Resource Not found', 404);
 };
-
-// app.get('/crash-test', () => {
-//   setTimeout(() => {
-//     throw new Error('Server will crash now');
-//   }, 0);
-// });
 
 app.use(authRoutes);
 app.use(auth);
