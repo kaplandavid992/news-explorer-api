@@ -2,20 +2,18 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
 const User = require('../models/user');
-
+const ERROR_MESSAGES = require('../constants/errorMessages');
 const NotFoundError = require('../errors/NotFoundError');
 const ConflictError = require('../errors/ConflictError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
-const options = { runValidators: true, new: true };
-
 
 const getLoggedInUser = async (req, res, next) => {
   await User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('No user found with that id');
+        throw new NotFoundError(ERROR_MESSAGES.userNotFound);
       }
       res.send({ data: user });
     })
@@ -37,16 +35,16 @@ const createUser = (req, res, next) => {
   User.findOne({ email })
     .then((user) => {
       if (user) {
-        throw new ConflictError('User already exists');
+        throw new ConflictError(ERROR_MESSAGES.userExists);
       }
       return bcrypt.hash(password, 10);
     }).then((hash) => User.create({
       email,
       password: hash,
-      name
+      name,
     }))
     .then(() => res.status(200).send({
-      email, name
+      email, name,
     }))
     .catch(next);
 };
@@ -54,7 +52,7 @@ const createUser = (req, res, next) => {
 const login = (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    throw new UnauthorizedError('Not authorized');
+    throw new UnauthorizedError(ERROR_MESSAGES.unauthorized);
   }
   return User.findUserByCredentials(email, password)
     .then((user) => {

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const articleSchema = new mongoose.Schema({
   keyword: { type: String, required: true },
@@ -14,7 +14,7 @@ const articleSchema = new mongoose.Schema({
       },
       message: (props) => `${props.value} is not a valid URL!`,
     },
-    required: [true, "URL is required"],
+    required: [true, 'URL is required'],
   },
   image: {
     type: String,
@@ -24,14 +24,14 @@ const articleSchema = new mongoose.Schema({
       },
       message: (props) => `${props.value} is not a valid URL!`,
     },
-    required: [true, "URL is required"],
+    required: [true, 'URL is required'],
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
     select: 'false',
-    required: true
+    required: true,
   },
 });
 
-module.exports = mongoose.model("article", articleSchema);
+module.exports = mongoose.model('article', articleSchema);
